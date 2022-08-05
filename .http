@@ -1,0 +1,6 @@
+route :/api/user/login
+
+user={
+  "email":"admin",
+  "password":"admin"
+}
