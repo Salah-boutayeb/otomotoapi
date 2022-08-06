@@ -1,12 +1,21 @@
-const express = require("express");
-const { crud } = require("express-crud-router");
-const { sequelizeCrud } = require("express-crud-router-sequelize-v6-connector");
-const { Category } = require("../models");
+const {
+  createCategory,
+  getAllCategories,
+  getCategoryById,
+  updateCategory,
+  deleteCategory,
+} = require("../controller/category");
 
-const app = new express();
-app.use(
-  crud("/admin/category", {
-    ...sequelizeCrud(Category),
-    destroy: null,
-  })
-);
+const { Router } = require("express");
+
+const router = Router();
+
+router.get("/", (req, res) => res.send("Welcome"));
+
+router.post("/", createCategory);
+router.get("/", getAllCategories);
+router.get("/:categoryId", getCategoryById);
+router.put("/:categoryId", updateCategory);
+router.delete("/:categoryId", deleteCategory);
+
+module.exports = router;

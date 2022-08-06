@@ -1,7 +1,7 @@
-import asyncHandler from ("express-async-handler");
-import bycrypt from ("bcryptjs");
-import jwt from ("jsonwebtoken");
-import User from ("../models/user");
+const asyncHandler = require("express-async-handler");
+const bycrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;

@@ -1,7 +1,7 @@
-import asyncHandler from ("express-async-handler");
-import bycrypt from ("bcryptjs");
-import jwt from ("jsonwebtoken");
-import { User } from ("../models");
+const asyncHandler = require("express-async-handler");
+const bycrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { User } = require("../models");
 /*  **************************generate jwt *******************************  */
 
 const generateJwt = (id) => {

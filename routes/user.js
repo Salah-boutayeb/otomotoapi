@@ -1,7 +1,7 @@
-import express from("express");
+const express = require("express");
 const router = express.Router();
-import { registerUser, userLogin, getUser } from("../controller/user");
-import { protect } from("../middleware/authMiddelware");
+const { registerUser, userLogin, getUser } = require("../controller/user");
+const { protect } = require("../middleware/authMiddelware");
 router.route("/signup").post(registerUser);
 router.route("/login").post(userLogin);
 router.get("/me", protect, getUser);
