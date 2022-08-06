@@ -6,12 +6,14 @@ const port = process.env.PORT || 5555;
 const logger = require("morgan");
 
 const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
 const db = require("./models/index");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger("dev"));
 app.use("/api/user", userRoutes);
+app.use("/api/", categoryRoutes);
 db.sequelize
   .sync()
   .then((e) => {

@@ -1,7 +1,7 @@
-const asyncHandler = require("express-async-handler");
-const bycrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const models = require("../models");
+import asyncHandler from ("express-async-handler");
+import bycrypt from ("bcryptjs");
+import jwt from ("jsonwebtoken");
+import { User } from ("../models");
 /*  **************************generate jwt *******************************  */
 
 const generateJwt = (id) => {
@@ -22,7 +22,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("please fill all fields");
   }
   // sheck if user already exists
-  const userExists = await models.User.findOne({ where: { email } });
+  const userExists = await User.findOne({ where: { email } });
   if (userExists) {
     res.status(400);
     throw new Error("user already exists");
@@ -30,7 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // hashPassword
   const salt = await bycrypt.genSalt(10);
   const hashPassword = await bycrypt.hash(password, salt);
-  const user = await models.User.create({
+  const user = await User.create({
     firstName,
     lastName,
     email,
@@ -62,7 +62,7 @@ const userLogin = asyncHandler(async (req, res) => {
     throw new Error("please fill all fields");
   }
   // sheck if user already exists
-  const userExists = await models.User.findOne({ where: { email } });
+  const userExists = await User.findOne({ where: { email } });
   if (userExists && (await bycrypt.compare(password, userExists.password))) {
     console.log("existss");
     res.status(201).json({
@@ -81,7 +81,7 @@ const userLogin = asyncHandler(async (req, res) => {
 // @route: GET /api/users/me
 // @access: public
 const getUser = asyncHandler(async (req, res) => {
-  const { id, name, email } = await models.User.findOne({
+  const { id, name, email } = await User.findOne({
     where: { id: req.user.id },
   });
 
