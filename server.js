@@ -15,9 +15,6 @@ const piecesRoutes = require("./routes/piece");
 const db = require("./models/index");
 const app = express();
 
-/* app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// app.use(bodyParser.urlencoded({ extended: false })); */
 app.use(bodyParser.json());
 // in latest body-parser use like below.
 app.use(bodyParser.urlencoded({ extended: true }));

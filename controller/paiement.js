@@ -1,10 +1,10 @@
 const { Paiement } = require("../models");
-Paiement
+
 const createPaiement = async (req, res) => {
   try {
-    const Paiement = await Paiement.create(req.body);
+    const paiement = await Paiement.create(req.body);
     return res.status(201).json({
-      Paiement,
+      paiement,
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -24,9 +24,9 @@ const getAllpaiements = async (req, res) => {
 
 const getPaiementById = async (req, res) => {
   try {
-    const { PaiementId } = req.params;
-    const Paiement = await Paiement.findOne({
-      where: { id: PaiementId },
+    const { paiementId } = req.params;
+    const paiement = await Paiement.findOne({
+      where: { id: paiementId },
       include: [
         /* {
           model: models.Comment,
@@ -44,8 +44,8 @@ const getPaiementById = async (req, res) => {
         }, */
       ],
     });
-    if (Paiement) {
-      return res.status(200).json({ Paiement });
+    if (paiement) {
+      return res.status(200).json({ paiement });
     }
     return res
       .status(404)
@@ -57,13 +57,13 @@ const getPaiementById = async (req, res) => {
 
 const updatePaiement = async (req, res) => {
   try {
-    const { PaiementId } = req.params;
+    const { paiementId } = req.params;
     const [updated] = await Paiement.update(req.body, {
-      where: { id: PaiementId },
+      where: { id: paiementId },
     });
     if (updated) {
       const updatedPaiement = await Paiement.findOne({
-        where: { id: PaiementId },
+        where: { id: paiementId },
       });
       return res.status(200).json({ Paiement: updatedPaiement });
     }
@@ -75,9 +75,9 @@ const updatePaiement = async (req, res) => {
 
 const deletePaiement = async (req, res) => {
   try {
-    const { PaiementId } = req.params;
+    const { paiementId } = req.params;
     const deleted = await Paiement.destroy({
-      where: { id: PaiementId },
+      where: { id: paiementId },
     });
     if (deleted) {
       return res.status(204).send("Paiement deleted");
