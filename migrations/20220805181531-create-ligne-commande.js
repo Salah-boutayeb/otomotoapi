@@ -17,6 +17,9 @@ module.exports = {
       isDelivered: {
         type: Sequelize.BOOLEAN,
       },
+      quantite: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

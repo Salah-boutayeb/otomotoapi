@@ -1,4 +1,4 @@
-const { Category } = require("../models");
+const { Category, Piece } = require("../models");
 
 const createCategory = async (req, res) => {
   try {
@@ -14,7 +14,11 @@ const createCategory = async (req, res) => {
 const getAllCategories = async (req, res) => {
   try {
     const categories = await Category.findAll({
-      include: [],
+      include: [
+        {
+          model: Piece,
+        },
+      ],
     });
     return res.status(200).json({ categories });
   } catch (error) {
@@ -28,17 +32,17 @@ const getCategoryById = async (req, res) => {
     const category = await Category.findOne({
       where: { id: categoryId },
       include: [
-        /* {
-          model: models.Comment,
-          as: "comments",
-          include: [
+        {
+          model: Piece,
+
+          /* include: [
             {
               model: models.User,
               as: "author",
             },
-          ],
+          ], */
         },
-        {
+        /* {
           model: models.User,
           as: "author",
         }, */

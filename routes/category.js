@@ -10,8 +10,6 @@ const { Router } = require("express");
 
 const router = Router();
 
-router.get("/", (req, res) => res.send("Welcome"));
-
 router.post("/", createCategory);
 router.get("/", getAllCategories);
 router.get("/:categoryId", getCategoryById);

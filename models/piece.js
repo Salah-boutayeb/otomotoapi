@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       Piece.belongsToMany(models.Commande, {
         through: models.ligneCommande,
       });
-      Piece.hasMany(models.Image, {
+      Piece.hasMany(models.PieceImage, {
         onDelete: "CASCADE",
       });
     }
@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       VIN: DataTypes.STRING,
       reference: DataTypes.STRING,
       description: DataTypes.JSON,
+      quantite: DataTypes.INTEGER,
       typeVehicule: DataTypes.STRING,
       categoryId: DataTypes.INTEGER,
       fournisseurId: DataTypes.INTEGER,

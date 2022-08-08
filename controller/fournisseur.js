@@ -1,4 +1,4 @@
-const { Fournisseur } = require("../models");
+const { Fournisseur, Piece } = require("../models");
 
 const createFournisseur = async (req, res) => {
   try {
@@ -14,7 +14,11 @@ const createFournisseur = async (req, res) => {
 const getAllFournisseur = async (req, res) => {
   try {
     const fournisseurs = await Fournisseur.findAll({
-      include: [],
+      include: [
+        {
+          model: Piece,
+        },
+      ],
     });
     return res.status(200).json({ fournisseurs });
   } catch (error) {
@@ -28,6 +32,7 @@ const getFournisseurById = async (req, res) => {
     const fournisseur = await Fournisseur.findOne({
       where: { id: fournisseurId },
       include: [
+        { model: Piece },
         /* {
           model: models.Comment,
           as: "comments",

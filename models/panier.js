@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Panier.hasMany(models.Piece, {
-        foreignKey: "pieceId",
+        foreignKey: "panierId",
       });
       Panier.belongsTo(models.User, {
         foreignKey: "userId",

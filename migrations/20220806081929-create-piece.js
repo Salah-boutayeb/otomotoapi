@@ -17,6 +17,9 @@ module.exports = {
       description: {
         type: Sequelize.JSON,
       },
+      quantite: {
+        type: Sequelize.INTEGER,
+      },
       typeVehicule: {
         type: Sequelize.STRING,
       },

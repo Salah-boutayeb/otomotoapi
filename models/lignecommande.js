@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   ligneCommande.init(
     {
       isDelivered: DataTypes.BOOLEAN,
+      quantite: DataTypes.INTEGER,
     },
     {
       sequelize,

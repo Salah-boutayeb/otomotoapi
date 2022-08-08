@@ -1,5 +1,5 @@
 sequelize-cli model:generate --name Category --attributes nom:String
-sequelize-cli model:generate --name PiaceImage --attributes url:String,pieceId:integer
+sequelize-cli model:generate --name PieceImage --attributes url:String
 sequelize-cli model:generate --name Piece --attributes VIN:String, reference:String, description:JSON,typeVehicule:String,categoryId:integer,fournisseurId:integer,panierId:integer
 sequelize-cli model:generate --name Fournisseur --attributes nom:String,type:String
 sequelize-cli model:generate --name Commande --attributes dateCommande:Date ,dateLivraison:Date ,userId:integer, 
