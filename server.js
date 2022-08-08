@@ -7,6 +7,9 @@ const logger = require("morgan");
 
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
+const paiementRoutes = require("./routes/paiement");
+const panierRoutes = require("./routes/panier");
+const pieceRoutes = require("./routes/piece");
 const fournisseursRoutes = require("./routes/fournisseur");
 const piecesRoutes = require("./routes/piece");
 const db = require("./models/index");
@@ -22,6 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger("dev"));
 app.use("/api/user", userRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/paiements", paiementRoutes);
+app.use("/api/paniers", panierRoutes);
+app.use("/api/pieces", pieceRoutes);
 app.use("/api/fournisseurs", fournisseursRoutes);
 app.use("/api/pieces", piecesRoutes);
 db.sequelize
