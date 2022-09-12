@@ -3,9 +3,7 @@ const { Category, Piece } = require("../models");
 const createCategory = async (req, res) => {
   try {
     const category = await Category.create(req.body);
-    return res.status(201).json({
-      category,
-    });
+    return res.status(201).send(category);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -20,7 +18,9 @@ const getAllCategories = async (req, res) => {
         },
       ],
     });
-    return res.status(200).json({ categories });
+    res.append("Content-Range", categories.length);
+    res.append("Access-Control-Expose-Headers", "Content-Range");
+    return res.status(200).send(categories);
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -49,7 +49,7 @@ const getCategoryById = async (req, res) => {
       ],
     });
     if (category) {
-      return res.status(200).json({ category });
+      return res.status(200).send(category);
     }
     return res
       .status(404)
@@ -69,7 +69,7 @@ const updateCategory = async (req, res) => {
       const updatedCategory = await Category.findOne({
         where: { id: categoryId },
       });
-      return res.status(200).json({ category: updatedCategory });
+      return res.status(200).send(updatedCategory);
     }
     throw new Error("category not found");
   } catch (error) {

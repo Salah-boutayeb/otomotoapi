@@ -1,8 +1,11 @@
-const { Panier } = require("../models");
+const { Panier, Piece } = require("../models");
 
 const createPanier = async (req, res) => {
   try {
     const panier = await Panier.create(req.body);
+    const piece = await Piece.findOne({
+      where: { id: req.body.panierId },
+    });
     return res.status(201).json({
       panier,
     });

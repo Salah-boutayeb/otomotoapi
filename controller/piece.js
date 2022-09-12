@@ -1,24 +1,18 @@
 const { Piece, Category, PieceImage } = require("../models");
 
 const createPiece = async (req, res) => {
-  console.log(req.file);
   console.log(req.body);
-  res.status(201).json({
-    mssg: "thank u",
-  });
-  /* try {
+  console.log(req.file);
+  try {
     const piece = await Piece.create(req.body);
-    const images = await PieceImage.create({
+    /* const images = await PieceImage.create({
       pieceId: piece.id,
       url: req.body.image,
-    });
-    return res.status(201).json({
-      piece,
-      images,
-    });
+    }); */
+    return res.status(201).send(piece);
   } catch (error) {
     return res.status(500).json({ error: error.message });
-  } */
+  }
 };
 
 const getAllpieces = async (req, res) => {
@@ -28,7 +22,9 @@ const getAllpieces = async (req, res) => {
     });
     const images = pieces.PieceImages;
     console.log(images);
-    return res.status(200).json({ pieces });
+    res.append("Content-Range", pieces.length);
+    res.append("Access-Control-Expose-Headers", "Content-Range");
+    return res.status(200).send(pieces);
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -39,28 +35,12 @@ const getPieceById = async (req, res) => {
     const { pieceId } = req.params;
     const piece = await Piece.findOne({
       where: { id: pieceId },
-      include: [
-        { model: PieceImage },
-        /* {
-          model: models.Comment,
-          as: "comments",
-          include: [
-            {
-              model: models.User,
-              as: "author",
-            },
-          ],
-        },
-        {
-          model: models.User,
-          as: "author",
-        }, */
-      ],
+      include: [{ model: PieceImage }],
     });
 
     console.log(piece.PieceImages);
     if (piece) {
-      return res.status(200).json({ piece });
+      return res.status(200).send(piece);
     }
     return res.status(404).send("Piece with the specified ID does not exists");
   } catch (error) {
@@ -78,7 +58,7 @@ const updatePiece = async (req, res) => {
       const updatedPiece = await Piece.findOne({
         where: { id: pieceId },
       });
-      return res.status(200).json({ Piece: updatedPiece });
+      return res.status(200).send(updatedPiece);
     }
     throw new Error("Piece not found");
   } catch (error) {

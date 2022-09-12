@@ -3,9 +3,7 @@ const { Fournisseur, Piece } = require("../models");
 const createFournisseur = async (req, res) => {
   try {
     const fournisseur = await Fournisseur.create(req.body);
-    return res.status(201).json({
-      fournisseur,
-    });
+    return res.status(201).send(fournisseur);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -13,6 +11,7 @@ const createFournisseur = async (req, res) => {
 
 const getAllFournisseur = async (req, res) => {
   try {
+    const list = [];
     const fournisseurs = await Fournisseur.findAll({
       include: [
         {
@@ -20,7 +19,10 @@ const getAllFournisseur = async (req, res) => {
         },
       ],
     });
-    return res.status(200).json({ fournisseurs });
+
+    res.append("Content-Range", fournisseurs.length);
+    res.append("Access-Control-Expose-Headers", "Content-Range");
+    return res.status(200).send(fournisseurs);
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -50,7 +52,7 @@ const getFournisseurById = async (req, res) => {
       ],
     });
     if (fournisseur) {
-      return res.status(200).json({ fournisseur });
+      return res.status(200).send(fournisseur);
     }
     return res
       .status(404)
@@ -70,7 +72,7 @@ const updateFournisseur = async (req, res) => {
       const updatedFournisseur = await Fournisseur.findOne({
         where: { id: fournisseurId },
       });
-      return res.status(200).json({ Fournisseur: updatedFournisseur });
+      return res.status(200).send(updatedFournisseur);
     }
     throw new Error("Fournisseur not found");
   } catch (error) {

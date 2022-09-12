@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv").config();
 const port = process.env.PORT || 5555;
 const logger = require("morgan");
-
+const cors = require("cors");
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const paiementRoutes = require("./routes/paiement");
@@ -14,7 +14,7 @@ const fournisseursRoutes = require("./routes/fournisseur");
 const piecesRoutes = require("./routes/piece");
 const db = require("./models/index");
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 // in latest body-parser use like below.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +28,7 @@ app.use("/api/pieces", pieceRoutes);
 app.use("/api/fournisseurs", fournisseursRoutes);
 app.use("/api/pieces", piecesRoutes);
 db.sequelize
-  .sync({ force: false, alter: true })
+  .sync({ force: false, alter: false })
   .then((e) => {
     console.log(e);
   })
